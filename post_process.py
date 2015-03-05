@@ -72,7 +72,6 @@ import matplotlib.pyplot as plt
 
 N = 2
 ind = np.arange(N)    
-print ind
 width = 0.3     
 
 p1 = plt.bar(ind, [IO_FINAL,0], width=width, color='r')
@@ -84,5 +83,5 @@ plt.ylabel('Time')
 plt.title('CX RUN TIMES')
 plt.xticks(ind+width/2., ('EDISON',) )
 
-plt.legend( (p1[0], p2[0], p3[0], p4[0]), ('IO', 'CPU', 'NETWORK_FINAL','OVERHEADS') )
+plt.legend( (p1[0], p2[0], p3[0], p4[0]), ('IO', 'CPU', 'NETWORK','OVERHEADS') )
 plt.show()
