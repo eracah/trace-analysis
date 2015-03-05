@@ -57,7 +57,7 @@ for line in sys.stdin:
 		transformation_mapping[identifier] = data_list
 summation = lambda l:sum(l)
 IO = [transformation_mapping[HDFS_READ], transformation_mapping[DATA_DESERIALIZATION],
- transformation_mapping[OUTPUT_WRITE_WAIT], transformation_mapping[LOCAL_READ_WAIT]]
+	 transformation_mapping[OUTPUT_WRITE_WAIT], transformation_mapping[LOCAL_READ_WAIT]]
 IO_FINAL = sum(map(summation, IO))
 CPU = [transformation_mapping[COMPUTE]]
 CPU_FINAL = sum(map(summation, CPU))
