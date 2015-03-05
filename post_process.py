@@ -10,14 +10,7 @@ data_deserilization = []
 output_write_wait = []
 compute = []
 gc = []
-"""
-    plot_file.write("plot -1 ls 6 title 'Scheduler delay',\\\n")
-    plot_file.write(" -1 ls 8 title 'Task deserialization', -1 ls 7 title 'HDFS read',\\\n")
-    plot_file.write("-1 ls 1 title 'Local read wait',\\\n")
-    plot_file.write("-1 ls 2 title 'Network wait', -1 ls 3 title 'Compute', \\\n")
-    plot_file.write("-1 ls 9 title 'Data (de)serialization', -1 ls 4 title 'GC', \\\n")
-    plot_file.write("-1 ls 5 title 'Output write wait'\\\n")
-"""
+
 identifier_mapping ={
 3:"COMPUTE",  
 4:"GC",
@@ -78,13 +71,9 @@ import matplotlib.pyplot as plt
 
 
 N = 2
-#menMeans   = (20, 35, 30, 35, 27)
-#womenMeans = (25, 32, 34, 20, 25)
-#menStd     = (2, 3, 4, 1, 2)
-#womenStd   = (3, 5, 2, 3, 3)
-ind = np.arange(N)    # the x locations for the groups
+ind = np.arange(N)    
 print ind
-width = 0.3      # the width of the bars: can also be len(x) sequence
+width = 0.3     
 
 p1 = plt.bar(ind, [IO_FINAL,0], width=width, color='r')
 p2 = plt.bar(ind, [CPU_FINAL,0],width= width, color='y')
@@ -97,24 +86,3 @@ plt.xticks(ind+width/2., ('EDISON',) )
 
 plt.legend( (p1[0], p2[0], p3[0], p4[0]), ('IO', 'CPU', 'NETWORK_FINAL','OVERHEADS') )
 plt.show()
-"""
-N = 2
-menMeans   = (20,0)
-womenMeans = (25,0)
-ind = np.arange(N)    # the x locations for the groups
-width = 0.35       # the width of the bars: can also be len(x) sequence
-
-p1 = plt.bar(ind, menMeans,   width, color='r')
-p2 = plt.bar(ind, womenMeans, width, color='y',
-             bottom=menMeans)
-
-
-plt.ylabel('Scores')
-plt.title('Scores by group and gender')
-#plt.xticks(ind+width/2., ('G1',) )
-#plt.yticks(np.arange(0,81,10))
-#plt.legend( (p1[0], p2[0]), ('Men', 'Women') )
-
-plt.show()
-
-"""
