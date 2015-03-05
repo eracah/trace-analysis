@@ -1,6 +1,7 @@
 import os
 import sys
-import matplotlib.pylab as plt
+
+
 schedular_delay = []
 task_deserialization = []
 hdfs_read =[]
