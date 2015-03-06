@@ -58,13 +58,13 @@ for line in sys.stdin:
 summation = lambda l:sum(l)
 IO = [transformation_mapping[HDFS_READ], transformation_mapping[DATA_DESERIALIZATION],
 	 transformation_mapping[OUTPUT_WRITE_WAIT], transformation_mapping[LOCAL_READ_WAIT]]
-IO_FINAL = sum(map(summation, IO))
+IO_FINAL = [sum(map(summation, IO)),0]
 CPU = [transformation_mapping[COMPUTE]]
-CPU_FINAL = sum(map(summation, CPU))
+CPU_FINAL = [sum(map(summation, CPU)),0]
 NETWORK = [transformation_mapping[NETWORK_WAIT], transformation_mapping[SCHEDULAR_DELAY]]
-NETWORK_FINAL = sum(map(summation, NETWORK))
+NETWORK_FINAL = [sum(map(summation, NETWORK)),0]
 OVERHEADS = [transformation_mapping[GC], transformation_mapping[TASK_DESERIAL]]
-OVERHEADS_FINAL = sum(map(summation, OVERHEADS))
+OVERHEADS_FINAL = [sum(map(summation, OVERHEADS)),0]
 print IO_FINAL, CPU_FINAL, NETWORK_FINAL, OVERHEADS_FINAL
 
 # Now lets plot
@@ -72,18 +72,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-N = 2
-ind = np.arange(N)    
+N = 1
+ind = np.arange(2)    
 width = 0.3     
 
-p1 = plt.bar(ind, [IO_FINAL,0], width=width, color='r')
-p2 = plt.bar(ind, [CPU_FINAL,0],width= width, color='y')
+p1 = plt.bar(ind, IO_FINAL, width=width, color='r')
+p2 = plt.bar(ind, CPU_FINAL, width= width, color='y', bottom=IO_FINAL)
+p3 = plt.bar(ind, NETWORK_FINAL, width=width, color='b',bottom=[IO_FINAL[j] +CPU_FINAL[j] for j in range(len(IO_FINAL))])
+p4 = plt.bar(ind, OVERHEADS_FINAL, width= width, color='g',bottom=[IO_FINAL[j] +CPU_FINAL[j] +NETWORK_FINAL[j] for j in range(len(IO_FINAL))])
 
-p3 = plt.bar(ind, [NETWORK_FINAL,0], width=width, color='b')
-p4 = plt.bar(ind, [OVERHEADS_FINAL,0],width= width, color='g')
 plt.ylabel('Time')
 plt.title('CX RUN TIMES')
 plt.xticks(ind+width/2., ('EDISON',) )
-
+print IO_FINAL, CPU_FINAL, NETWORK_FINAL, OVERHEADS_FINAL
 plt.legend( (p1[0], p2[0], p3[0], p4[0]), ('IO', 'CPU', 'NETWORK','OVERHEADS') )
 plt.show()
